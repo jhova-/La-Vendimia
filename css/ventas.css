@@ -1,0 +1,144 @@
+.form-label-ventas {
+    width: 7%;
+    border: 1px solid #337ab7;
+    background: #337ab7;
+    color: white;
+    border-radius: 3px;
+    padding: 2px;
+    text-align: center;
+}
+
+.form-label-enganche {
+    width: 50%;
+    border: 1px solid #337ab7;
+    background: #337ab7;
+    color: white;
+    border-radius: 3px;
+    padding: 2px;
+    text-align: center;
+}
+
+.form-label-normal {
+    font-family: Arial;
+}
+
+.form-input-ventas {
+    width: 30%;
+}
+
+.form-group-enganche {
+    margin: 3px;
+    width: 50%;
+}
+
+hr {
+    border-top: 2px solid #0089ff;
+}
+
+hr.no-margin {
+    margin-left: -20px;
+    margin-right: -20px;
+    margin-top: 20px;
+    margin-bottom: 0;
+    border-top: 2px solid black;
+}
+
+.img-btn {
+    position: relative;
+    top: 13px;
+    margin-top: -17px;
+    cursor: pointer;
+}
+
+.table-container {
+    min-height: 195px;
+    max-height: 195px;
+}
+
+.tabla-full {
+    width: 104%;
+    margin-left: -18px;
+    border-collapse: collapse;
+}
+
+.tabla-full-scroll {
+    display: block;
+    overflow-y: auto;
+    max-height: 195px;
+}
+
+thead {
+    font-family: Arial;
+    text-align: left;
+    background: #cacaca;
+}
+
+th {
+    padding: 16px;
+}
+
+.col-xlarge {
+    width: 25%;
+}
+
+.col-medium {
+    width: 15%;
+}
+
+.col-xsmall {
+    width: 10%;
+}
+
+.col-xxsmall {
+    width: 5%;
+}
+
+.show {
+    display: block !important;
+}
+
+.show-inline {
+    display: inline-block !important;
+}
+
+.detalles-ocultos {
+    display: none;
+}
+
+.rfc-container {
+    display: none;
+
+}
+
+#detalles-plazo > table > thead {
+    background-color: #b3b3f1;
+    color: blue;
+    text-align: left;
+    font-family: Arial;
+    text-align: center;
+}
+
+.row-td {
+    padding: 16px;
+    font: 14px Arial;
+    background: #efefef;
+}
+
+.row-td-center {
+    text-align: center;
+}
+
+.cantidad {
+    width: 95%;
+    display: inline-block;
+    height: 25px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    text-align: center;
+}
+
+.delete-btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}

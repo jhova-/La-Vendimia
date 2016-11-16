@@ -1,0 +1,123 @@
+<div class="content-form-view">
+    <div class="content-form-template">
+        <header class="content-title">
+            <h3 class="title">Registro de Ventas</h3>
+        </header>
+        <div class="content-form">
+            <form>
+                <div class="pull-right">
+                    <label class="form-label form-label-right">Folio Venta: <span id="folio"></span></label>
+                </div>
+                <div class="clearfix"></div>
+                <div class="form-group">
+                    <label class="form-label form-label-ventas">Cliente:</label>
+                    <input id="cliente" onkeydown="onlyText(event)" onkeyup="buscarCliente(event, this.value)" onchange="seleccionarCliente(this.value)" autocomplete="off" list="clientes" placeholder="Buscar Cliente" class="form-input form-input-ventas" type="text">
+                    <div id="rfc-container" class="rfc-container"><label class="form-label-normal">RFC: <label class="form-label-normal" id="rfc"></label></label></div>
+                    <datalist id="clientes"></datalist>
+                </div>
+                <hr>
+                <div class="form-group">
+                    <label class="form-label form-label-ventas">Articulo:</label>
+                    <input id="articulo" onkeydown="onlyText(event)" onkeyup="buscarArticulo(event, this.value)" autocomplete="off" list="articulos" placeholder="Buscar Acticulo" class="form-input form-input-ventas" type="text">
+                    <img id="add-btn" class="img-btn" onclick="addArticulos()" src="/img/ic_add_square.png" alt="Agregar Articulo">
+                    <datalist id="articulos"></datalist>
+                </div>
+                <hr class="no-margin">
+                <div class="table-container">
+                    <table class="tabla-full tabla-full-scroll">
+                        <thead>
+                            <tr>
+                                <th class="col-xlarge">Descripción Articulo</th>
+                                <th class="col-xlarge">Modelo</th>
+                                <th class="col-xsmall">Cantidad</th>
+                                <th class="col-medium">Precio</th>
+                                <th class="col-medium">Importe</th>
+                                <th class="col-xsmall"></th>
+                            </tr>
+                        </thead>
+                        <tbody class="lista-articulos">
+
+                        </tbody>
+                    </table>
+                </div>
+                <div id="detalles-venta" class="detalles-ocultos">
+                    <hr class="no-margin">
+                    <br>
+                    <div class="form-group-enganche pull-right">
+                        <label class="form-label form-label-enganche">Enganche:</label>
+                        <label class="form-label-normal" id="enganche"></label>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="form-group-enganche pull-right">
+                        <label class="form-label form-label-enganche">Bonificación Enganche:</label>
+                        <label class="form-label-normal" id="bonificacion"></label>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="form-group-enganche pull-right">
+                        <label class="form-label form-label-enganche">Total:</label>
+                        <label class="form-label-normal" id="total"></label>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div id="detalles-plazo" class="detalles-ocultos">
+                    <table class="tabla-full">
+                        <thead>
+                            <tr>
+                                <th colspan="7">Abonos Mensuales</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                                <tr>
+                                    <td class="row-td col-medium">3 Abonos de</td>
+                                    <td class="row-td col-medium"><label class="abono"></label></td>
+                                    <td class="row-td col-medium">Total a pagar</td>
+                                    <td class="row-td col-medium"><label class="total"></label></td>
+                                    <td class="row-td col-medium">Se ahorra</td>
+                                    <td class="row-td col-medium"><label class="ahorro"></label></td>
+                                    <td class="row-td"><input type="radio" name="plazos" value="3"></td>
+                                </tr>
+                                <tr>
+                                    <td class="row-td col-medium">6 Abonos de</td>
+                                    <td class="row-td col-medium"><label class="abono"></label></td>
+                                    <td class="row-td col-medium">Total a pagar</td>
+                                    <td class="row-td col-medium"><label class="total"></label></td>
+                                    <td class="row-td col-medium">Se ahorra</td>
+                                    <td class="row-td col-medium"><label class="ahorro"></label></td>
+                                    <td class="row-td"><input type="radio" name="plazos" value="6"></td>
+                                </tr>
+                                <tr>
+                                    <td class="row-td col-medium">9 Abonos de</td>
+                                    <td class="row-td col-medium"><label class="abono"></label></td>
+                                    <td class="row-td col-medium">Total a pagar</td>
+                                    <td class="row-td col-medium"><label class="total"></label></td>
+                                    <td class="row-td col-medium">Se ahorra</td>
+                                    <td class="row-td col-medium"><label class="ahorro"></label></td>
+                                    <td class="row-td"><input type="radio" name="plazos" value="9"></td>
+                                </tr>
+                                <tr>
+                                    <td class="row-td col-medium">12 Abonos de</td>
+                                    <td class="row-td col-medium"><label class="abono"></label></td>
+                                    <td class="row-td col-medium">Total a pagar</td>
+                                    <td class="row-td col-medium"><label class="total"></label></td>
+                                    <td class="row-td col-medium">Se ahorra</td>
+                                    <td class="row-td col-medium"><label class="ahorro"></label></td>
+                                    <td class="row-td"><input type="radio" name="plazos" value="12"></td>
+                                </tr>
+                            </tbody>
+                    </table>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="content-btns" class="content-btns detalles-ocultos pull-right">
+        <button class="content-btn content-btn-cancel" onclick="changeView()">Cancelar</button>
+        <button id="content-btn-ok" class="content-btn content-btn-ok" onclick="calcularPlazos()">Siguiente</button>
+    </div>
+</div>
+
+<link rel="stylesheet" href="/css/forms.css">
+<link rel="stylesheet" href="/css/ventas.css">
+<script src="/js/forms.js"></script>
+<script src="/js/ventas.js"></script>
+<script src="/js/accounting.min.js"></script>

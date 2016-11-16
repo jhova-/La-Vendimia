@@ -1,0 +1,5 @@
+Options +FollowSymLinks
+RewriteEngine On
+RewriteBase /
+RewriteRule ^(js|css|img|svc)($|/) - [L]
+RewriteRule (.*) index.php [QSA,L,E=PATH_INFO:/$1]
