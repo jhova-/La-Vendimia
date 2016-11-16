@@ -15,6 +15,10 @@ $app->group("/articulos", function(){
         return $response->withJson(Articulo::newInstance($this->db));
     });
 
+    $this->post("/find", function(\Slim\Http\Request $request, \Slim\Http\Response $response){
+        return $response->withJson(Articulo::find($this->db, ($request->getParsedBody())['articulo']));
+    });
+
     $this->post("/register", function(\Slim\Http\Request $request, \Slim\Http\Response $response){
         $articulo = Articulo::instanceFrom($this->db, $request->getParsedBody());
         

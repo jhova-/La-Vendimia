@@ -39,6 +39,20 @@ class Articulo extends BaseModel
         return new self($con, self::Initialize($con, "articulos", $clave), true);
     }
 
+    static function find(PDO $con, string $articulo){
+        $query = "SELECT clave, descripcion, modelo FROM articulos 
+                    WHERE 
+                        `clave` LIKE :articulo OR
+                        `descripcion` LIKE :articulo OR
+                        `modelo` LIKE :articulo";
+
+        $stmnt = $con->prepare($query);
+
+        $stmnt->execute(array(":articulo" => "%".$articulo."%"));
+
+        return $stmnt->fetchAll();
+    }
+
     static function getAll(PDO $con)
     {
         $query = "SELECT * FROM articulos";

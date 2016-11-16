@@ -1,0 +1,72 @@
+.content-table-view {
+    width: 75%;
+    margin: auto;
+}
+
+caption {
+    text-align: left;
+    border-bottom: 3px solid #00c0ff;
+    color: #00c0ff;
+    margin-bottom: 10px;
+    font-size: x-large;
+    font-family: Arial;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+thead {
+    background-color: #b3b3f1;
+    color: blue;
+    text-align: left;
+    font-family: Arial;
+}
+
+tbody {
+    background-color: #eaeaff;
+}
+
+.lista > tr {
+    height: 35px;
+}
+
+th {
+    padding: 16px;
+}
+
+.col-small {
+    width: 15%;
+}
+
+.col-xsmall {
+    width: 10%;
+}
+
+.add-btn {
+    background-color: #337ab7;
+    border-radius: 10px;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+.add-icon {
+    background: url("/img/ic_add_circle.png") no-repeat left;
+    padding-left: 25px;
+}
+
+.edit-btn {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    width: 100%;
+}
+
+.row-td {
+    padding: 16px;
+    font: 14px Arial;
+}
