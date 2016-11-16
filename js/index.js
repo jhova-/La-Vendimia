@@ -20,13 +20,6 @@ $(window).click(function(event) {
 $(function (){
   toastr.options.positionClass = "toast-top-center";
   toastr.options.progressBar = true;
-
-  /*$.ajax({
-    method: "GET",
-    url: "api/src/index.php/config"
-  }).done(function(response){
-    console.log(response);
-  });*/
 });
 
 function padLeft(nr, n, str) {

@@ -29,7 +29,11 @@ $container['db'] = function ($c) {
 $app->get("/", function(Request $request, Response $response){
     $res["success"] = true;
 
-    return $response->withJson($res);
+    return $response
+		        ->withHeader('Access-Control-Allow-Origin', 'http://www.la-vendimia.tk')
+		        ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
+            	->withHeader('Access-Control-Allow-Methods', 'GET, POST')
+                ->withJson($res);
 });
 
 require "models/BaseModel.php";

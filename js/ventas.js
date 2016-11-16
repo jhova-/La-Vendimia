@@ -6,7 +6,7 @@ var tasa, porcentaje_engancho, plazo_max;
 $(function() {
     $.ajax({
         method: "GET",
-        url: "/api/src/index.php/config"
+        url: "http://api.la-vendimia.tk/config"
     }).done(function(response) {
         if (response.tasa == "" || response.porcentaje_engancho == "" || response.plazo_max == "") {
             toastr.options.onHidden = function() {
@@ -40,7 +40,7 @@ function addArticulos() {
 
     $.ajax({
         method: "GET",
-        url: "/api/src/index.php/articulos/" + articuloId
+        url: "http://api.la-vendimia.tk/articulos/" + articuloId
     }).done(function(response) {
         if (response.existencia > 0) {
             var itemExits = false;
@@ -248,7 +248,7 @@ function buscarCliente(event, cliente) {
     if ((event.which >= 48 && event.which <= 90 || event.which == 32 || event.which == 8) && cliente.length >= 3) {
         $.ajax({
             method: "POST",
-            url: "/api/src/index.php/clientes/find",
+            url: "http://api.la-vendimia.tk/clientes/find",
             data: {
                 cliente: cliente
             }
@@ -286,7 +286,7 @@ function buscarArticulo(event, articulo) {
     if ((event.which >= 48 && event.which <= 90 || event.which == 32 || event.which == 8) && articulo.length >= 3) {
         $.ajax({
             method: "POST",
-            url: "/api/src/index.php/articulos/find",
+            url: "http://api.la-vendimia.tk/articulos/find",
             data: {
                 articulo: articulo
             }

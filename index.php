@@ -33,7 +33,8 @@
 
     <div class="content">
         <?php
-            $view = $_SERVER["PATH_INFO"];
+            $view = $_SERVER["REQUEST_URI"];
+            $view = explode("?", $view)[0];
             
             switch($view){
                 case "/ventas":

@@ -3,7 +3,7 @@ $(function() {
 
     $.ajax({
         method: "GET",
-        url: "api/src/index.php" + $location
+        url: "http://api.la-vendimia.tk" + $location
     }).done(addRows);
 });
 

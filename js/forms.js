@@ -5,15 +5,15 @@ $(function() {
     var url;
 
     if (path == "config") {
-        url = "/api/src/index.php/" + path;
+        url = "http://api.la-vendimia.tk/" + path;
     }
     else if (window.location.search) {
         var id = window.location.search.split("=")[1];
 
-        url = "/api/src/index.php/" + path + "/" + parseInt(id);
+        url = "http://api.la-vendimia.tk/" + path + "/" + parseInt(id);
     }
     else {
-        url = "/api/src/index.php/" + path + "/new";
+        url = "http://api.la-vendimia.tk/" + path + "/new";
     }
 
     $.ajax({
@@ -92,7 +92,7 @@ function addItem() {
     console.log(item);
     $.ajax({
         method: "POST",
-        url: "/api/src/index.php/" + path + "/register",
+        url: "http://api.la-vendimia.tk/" + path + "/register",
         data: item
     }).done(function(response) {
         if (response == true) {
