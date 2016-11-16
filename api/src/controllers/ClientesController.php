@@ -15,6 +15,10 @@ $app->group("/clientes", function(){
         return $response->withJson(Cliente::newInstance($this->db));
     });
 
+    $this->post("/find", function(\Slim\Http\Request $request, \Slim\Http\Response $response){
+        return $response->withJson(Cliente::find($this->db, ($request->getParsedBody())["cliente"]));
+    });
+
     $this->post("/register", function(\Slim\Http\Request $request, \Slim\Http\Response $response){
         $cliente = Cliente::instanceFrom($this->db, $request->getParsedBody());
         

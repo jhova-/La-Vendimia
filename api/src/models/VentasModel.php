@@ -43,7 +43,8 @@ class Venta extends BaseModel
 
     static function getAll(PDO $con)
     {
-        $query = "SELECT * FROM ventas";
+        $query = "SELECT folio, cliente, nombre, paterno, materno, articulos, total, plazo, DATE_FORMAT(fecha, '%d/%m/%Y') AS fecha 
+                    FROM ventas JOIN clientes ON cliente = clave";
 
         $stmnt = $con->prepare($query);
 
@@ -54,12 +55,30 @@ class Venta extends BaseModel
 
     function Guardar()
     {
-        $query = "INSERT INTO ventas (folio, cliente, articulos, fecha, total, plazo) VALUES (:folio, :cliente, :articulos, :fecha, :total, :plazo)
-                    ON DUPLICATE KEY UPDATE cliente = :cliente, articulos = :articulos, fecha = :fecha, total = :total, plazo = :plazo;";
+        $query = "INSERT INTO ventas (folio, cliente, articulos, total, plazo) VALUES (:folio, :cliente, :articulos, :total, :plazo)
+                    ON DUPLICATE KEY UPDATE cliente = :cliente, articulos = :articulos, total = :total, plazo = :plazo;";
         
         $stmnt = $this->pdo->prepare($query);
 
-        return $stmnt->execute(array(":folio" => (int) $this->folio, ":cliente" => $this->cliente, ":articulos" => json_encode($this->articulos), ":fecha" => $this->fecha, ":total" => $this->total, ":plazo" => $this->plazo));
+        if($stmnt->execute(array(":folio" => (int) $this->folio, ":cliente" => $this->cliente, ":articulos" => json_encode($this->articulos), ":total" => $this->total, ":plazo" => $this->plazo)))
+        {
+            return $this->DeducirArticulos($this->pdo, $this->articulos);
+        }
+    }
+
+    private function DeducirArticulos(PDO $con, $articulos){
+        foreach($articulos as $articulo){
+            $query = "UPDATE articulos SET existencia = existencia - :cantidad WHERE clave = :clave";
+
+            $stmnt = $con->prepare($query);
+
+            if(!$stmnt->execute($articulo))
+            {
+                return false;
+            }
+        }
+
+        return true;
     }
 }
 

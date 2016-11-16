@@ -12,14 +12,24 @@ class Config extends BaseModel
     public $porcentaje_engancho;
     public $plazo_max;
 
-    private function __construct(PDO $con, array $config, $notIncrement = false)
+    private function __construct(PDO $con, array $config)
     {
         $this->pdo = $con;
 
-        $this->id = (!$notIncrement ? (is_null($config["id"]) ? 1 : $config["id"] + 1) : $config["id"]);
-        $this->tasa = (is_null($config["tasa"]) ? "" : $config["tasa"]);
-        $this->porcentaje_engancho = (is_null($config["porcentaje_engancho"]) ? "" : $config["porcentaje_engancho"]);
-        $this->plazo_max = (is_null($config["plazo_max"]) ? "" : $config["plazo_max"]);
+        if(!empty($config))
+        {
+            $this->id = $config["id"];
+            $this->tasa = $config["tasa"];
+            $this->porcentaje_engancho = $config["porcentaje_engancho"];
+            $this->plazo_max = $config["plazo_max"];
+        }
+        else
+        {
+            $this->id = 1;
+            $this->tasa = "";
+            $this->porcentaje_engancho = "";
+            $this->plazo_max = "";
+        }
     }
 
     static function newInstance(PDO $con)
@@ -29,7 +39,7 @@ class Config extends BaseModel
 
     static function instanceFrom(PDO $con, array $config)
     {
-        return new self($con, $config, true);
+        return new self($con, $config);
     }
 
     function Guardar()

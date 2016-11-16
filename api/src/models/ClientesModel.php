@@ -38,6 +38,21 @@ class Cliente extends BaseModel
     {
         return new self($con, self::Initialize($con, "clientes", $clave), true);
     }
+    
+    static function find(PDO $con, string $cliente){
+        $query = "SELECT * FROM clientes 
+                    WHERE 
+                        `clave` LIKE :cliente OR
+                        `nombre` LIKE :cliente OR
+                        `paterno` LIKE :cliente OR
+                        `materno` LIKE :cliente";
+
+        $stmnt = $con->prepare($query);
+
+        $stmnt->execute(array(":cliente" => "%".$cliente."%"));
+
+        return $stmnt->fetchAll();
+    }
 
     static function getAll(PDO $con)
     {
