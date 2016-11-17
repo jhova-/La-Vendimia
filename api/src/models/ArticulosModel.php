@@ -17,11 +17,11 @@ class Articulo extends BaseModel
     {
         $this->pdo = $con;
 
-        $this->clave = (!$notIncrement ? (is_null($articulo["clave"]) ? sprintf("%04d", 1) : sprintf("%04d", $articulo["clave"] + 1)) : sprintf("%04d", $articulo["clave"]));
-        $this->descripcion = (is_null($articulo["descripcion"]) ? "" : $articulo["descripcion"]);
-        $this->modelo = (is_null($articulo["modelo"]) ? "" : $articulo["modelo"]);
-        $this->precio = (is_null($articulo["precio"]) ? "" : $articulo["precio"]);
-        $this->existencia = (is_null($articulo["existencia"]) ? "" : $articulo["existencia"]);
+        $this->clave = (!$notIncrement ? (isset($articulo["clave"]) && !is_null($articulo["clave"]) ? sprintf("%04d", $articulo["clave"] + 1) : sprintf("%04d", 1)) : (isset($articulo["clave"]) && !is_null($articulo["clave"]) ? sprintf("%04d", $articulo["clave"]) : "0000"));
+        $this->descripcion = (isset($articulo["descripcion"]) && !is_null($articulo["descripcion"]) ? $articulo["descripcion"] : "");
+        $this->modelo = (isset($articulo["modelo"]) && !is_null($articulo["modelo"]) ? $articulo["modelo"] : "");
+        $this->precio = (isset($articulo["precio"]) && !is_null($articulo["precio"]) ? $articulo["precio"] : "");
+        $this->existencia = (isset($articulo["existencia"]) && !is_null($articulo["existencia"]) ? $articulo["existencia"] : "");
     }
 
     static function newInstance(PDO $con)

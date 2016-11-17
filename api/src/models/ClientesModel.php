@@ -17,11 +17,11 @@ class Cliente extends BaseModel
     {
         $this->pdo = $con;
 
-        $this->clave = (!$notIncrement ? (is_null($cliente["clave"]) ? sprintf("%04d", 1) : sprintf("%04d", $cliente["clave"] + 1)) : sprintf("%04d", $cliente["clave"]));
-        $this->nombre = (is_null($cliente["nombre"]) ? "" : $cliente["nombre"]);
-        $this->paterno = (is_null($cliente["paterno"]) ? "" : $cliente["paterno"]);
-        $this->materno = (is_null($cliente["materno"]) ? "" : $cliente["materno"]);
-        $this->rfc = (is_null($cliente["rfc"]) ? "" : $cliente["rfc"]);
+        $this->clave = (!$notIncrement ? (isset($cliente["clave"]) && !is_null($cliente["clave"]) ? sprintf("%04d", $cliente["clave"] + 1) : sprintf("%04d", 1)) : (isset($cliente["clave"]) && !is_null($cliente["clave"]) ? sprintf("%04d", $cliente["clave"]) : "0000"));
+        $this->nombre = (isset($cliente["nombre"]) && !is_null($cliente["nombre"]) ? $cliente["nombre"] : "");
+        $this->paterno = (isset($cliente["paterno"]) && !is_null($cliente["paterno"]) ? $cliente["paterno"] : "");
+        $this->materno = (isset($cliente["materno"]) && !is_null($cliente["materno"]) ? $cliente["materno"] : "");
+        $this->tfc = (isset($cliente["tfc"]) && !is_null($cliente["tfc"]) ? $cliente["tfc"] : "");
     }
 
     static function newInstance(PDO $con)

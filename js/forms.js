@@ -156,7 +156,7 @@ function validateForm() {
 
             everythingOk = false;
         }
-        else if (input.prop("id") == "articulo" && $.trim(input.val()).length == 0) {
+        else if (input.prop("id") != "articulo" && $.trim(input.val()).length == 0) {
             if (!input.hasClass("error")) {
                 input.addClass("error");
             }
