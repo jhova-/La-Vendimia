@@ -17,11 +17,11 @@ class Cliente extends BaseModel
     {
         $this->pdo = $con;
 
-        $this->clave = (!$notIncrement ? (is_null($cliente["clave"]) ? sprintf("%04d", 1) : sprintf("%04d", $cliente["clave"] + 1)) : sprintf("%04d", $cliente["clave"]));
-        $this->nombre = (is_null($cliente["nombre"]) ? "" : $cliente["nombre"]);
-        $this->paterno = (is_null($cliente["paterno"]) ? "" : $cliente["paterno"]);
-        $this->materno = (is_null($cliente["materno"]) ? "" : $cliente["materno"]);
-        $this->rfc = (is_null($cliente["rfc"]) ? "" : $cliente["rfc"]);
+        $this->clave = (!$notIncrement ? (isset($cliente["clave"]) && !is_null($cliente["clave"]) ? sprintf("%04d", $cliente["clave"] + 1) : sprintf("%04d", 1)) : (isset($cliente["clave"]) && !is_null($cliente["clave"]) ? sprintf("%04d", $cliente["clave"]) : "0000"));
+        $this->nombre = (isset($cliente["nombre"]) && !is_null($cliente["nombre"]) ? $cliente["nombre"] : "");
+        $this->paterno = (isset($cliente["paterno"]) && !is_null($cliente["paterno"]) ? $cliente["paterno"] : "");
+        $this->materno = (isset($cliente["materno"]) && !is_null($cliente["materno"]) ? $cliente["materno"] : "");
+        $this->rfc = (isset($cliente["rfc"]) && !is_null($cliente["rfc"]) ? $cliente["rfc"] : "");
     }
 
     static function newInstance(PDO $con)
@@ -71,7 +71,7 @@ class Cliente extends BaseModel
                     ON DUPLICATE KEY UPDATE nombre = :nombre, paterno = :paterno, materno = :materno, rfc = :rfc;";
         
         $stmnt = $this->pdo->prepare($query);
-
+        
         return $stmnt->execute(array(":clave" => (int) $this->clave, ":nombre" => $this->nombre, ":paterno" => $this->paterno, ":materno" => $this->materno, ":rfc" => $this->rfc));
     }
 }

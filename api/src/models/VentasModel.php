@@ -18,12 +18,12 @@ class Venta extends BaseModel
     {
         $this->pdo = $con;
 
-        $this->folio = (!$notIncrement ? (is_null($venta["folio"]) ? sprintf("%04d", 1) : sprintf("%04d", $venta["folio"] + 1)) : sprintf("%04d", $venta["folio"]));
-        $this->cliente = (is_null($venta["cliente"]) ? "" : $venta["cliente"]);
-        $this->articulos = (is_null($venta["articulos"]) ? "" : $venta["articulos"]);
-        $this->fecha = (is_null($venta["fecha"]) ? "" : $venta["fecha"]);
-        $this->total = (is_null($venta["total"]) ? "" : $venta["total"]);
-        $this->plazo = (is_null($venta["plazo"]) ? "" : $venta["plazo"]);
+        $this->folio = (!$notIncrement ? (isset($venta["folio"]) && !is_null($venta["folio"]) ? sprintf("%04d", $venta["folio"] + 1) : sprintf("%04d", 1)) : (isset($venta["folio"]) && !is_null($venta["folio"]) ? sprintf("%04d", $venta["folio"]) : "0000"));
+        $this->cliente = (isset($venta["cliente"]) && !is_null($venta["cliente"]) ? $venta["cliente"] : "");
+        $this->articulos = (isset($venta["articulos"]) && !is_null($venta["articulos"]) ? $venta["articulos"] : "");
+        $this->fecha = (isset($venta["fecha"]) && !is_null($venta["fecha"]) ? $venta["fecha"] : "");
+        $this->total = (isset($venta["total"]) && !is_null($venta["total"]) ? $venta["total"] : "");
+        $this->plazo = (isset($venta["plazo"]) && !is_null($venta["plazo"]) ? $venta["plazo"] : "");
     }
 
     static function newInstance(PDO $con)
@@ -59,7 +59,7 @@ class Venta extends BaseModel
                     ON DUPLICATE KEY UPDATE cliente = :cliente, articulos = :articulos, total = :total, plazo = :plazo;";
         
         $stmnt = $this->pdo->prepare($query);
-
+        
         if($stmnt->execute(array(":folio" => (int) $this->folio, ":cliente" => $this->cliente, ":articulos" => json_encode($this->articulos), ":total" => $this->total, ":plazo" => $this->plazo)))
         {
             return $this->DeducirArticulos($this->pdo, $this->articulos);
