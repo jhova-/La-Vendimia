@@ -43,8 +43,8 @@ class Venta extends BaseModel
 
     static function getAll(PDO $con)
     {
-        $query = "SELECT folio, cliente, nombre, paterno, materno, ventas, total, plazo, DATE_FORMAT(fecha, '%d/%m/%Y') AS fecha 
-                    FROM ventas JOIN clientes ON cliente = folio";
+        $query = "SELECT folio, cliente, nombre, paterno, materno, articulos, total, plazo, DATE_FORMAT(fecha, '%d/%m/%Y') AS fecha 
+                    FROM ventas JOIN clientes ON cliente = clave";
 
         $stmnt = $con->prepare($query);
 
@@ -55,24 +55,24 @@ class Venta extends BaseModel
 
     function Guardar()
     {
-        $query = "INSERT INTO ventas (folio, cliente, ventas, total, plazo) VALUES (:folio, :cliente, :ventas, :total, :plazo)
-                    ON DUPLICATE KEY UPDATE cliente = :cliente, ventas = :ventas, total = :total, plazo = :plazo;";
+        $query = "INSERT INTO ventas (folio, cliente, articulos, total, plazo) VALUES (:folio, :cliente, :articulos, :total, :plazo)
+                    ON DUPLICATE KEY UPDATE cliente = :cliente, articulos = :articulos, total = :total, plazo = :plazo;";
         
         $stmnt = $this->pdo->prepare($query);
-
-        if($stmnt->execute(array(":folio" => (int) $this->folio, ":cliente" => $this->cliente, ":ventas" => json_encode($this->ventas), ":total" => $this->total, ":plazo" => $this->plazo)))
+        
+        if($stmnt->execute(array(":folio" => (int) $this->folio, ":cliente" => $this->cliente, ":articulos" => json_encode($this->articulos), ":total" => $this->total, ":plazo" => $this->plazo)))
         {
-            return $this->Deducirventas($this->pdo, $this->ventas);
+            return $this->DeducirArticulos($this->pdo, $this->articulos);
         }
     }
 
-    private function Deducirventas(PDO $con, $ventas){
-        foreach($ventas as $venta){
-            $query = "UPDATE ventas SET total = total - :cantidad WHERE folio = :folio";
+    private function DeducirArticulos(PDO $con, $articulos){
+        foreach($articulos as $articulo){
+            $query = "UPDATE articulos SET existencia = existencia - :cantidad WHERE clave = :clave";
 
             $stmnt = $con->prepare($query);
 
-            if(!$stmnt->execute($venta))
+            if(!$stmnt->execute($articulo))
             {
                 return false;
             }

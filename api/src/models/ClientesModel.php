@@ -21,7 +21,7 @@ class Cliente extends BaseModel
         $this->nombre = (isset($cliente["nombre"]) && !is_null($cliente["nombre"]) ? $cliente["nombre"] : "");
         $this->paterno = (isset($cliente["paterno"]) && !is_null($cliente["paterno"]) ? $cliente["paterno"] : "");
         $this->materno = (isset($cliente["materno"]) && !is_null($cliente["materno"]) ? $cliente["materno"] : "");
-        $this->tfc = (isset($cliente["tfc"]) && !is_null($cliente["tfc"]) ? $cliente["tfc"] : "");
+        $this->rfc = (isset($cliente["rfc"]) && !is_null($cliente["rfc"]) ? $cliente["rfc"] : "");
     }
 
     static function newInstance(PDO $con)
@@ -71,7 +71,7 @@ class Cliente extends BaseModel
                     ON DUPLICATE KEY UPDATE nombre = :nombre, paterno = :paterno, materno = :materno, rfc = :rfc;";
         
         $stmnt = $this->pdo->prepare($query);
-
+        
         return $stmnt->execute(array(":clave" => (int) $this->clave, ":nombre" => $this->nombre, ":paterno" => $this->paterno, ":materno" => $this->materno, ":rfc" => $this->rfc));
     }
 }
